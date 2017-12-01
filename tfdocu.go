@@ -185,7 +185,6 @@ func Readfile(fileName string) error {
 			continue
 		}
 		if status == 0 && (strings.Contains(line, "namespace ") || strings.Contains(line, "include ")) {
-			fmt.Println("continue:", line)
 			continue
 		}
 		if strings.HasPrefix(line, "/**") && !strings.HasSuffix(line, "*/") {
@@ -259,6 +258,7 @@ func Readfile(fileName string) error {
 			return err
 		}
 	}
+	fmt.Println("file:", f.Name())
 	return nil
 }
 
