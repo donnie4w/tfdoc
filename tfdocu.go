@@ -230,16 +230,18 @@ func Readfile(fileName string) error {
 			continue
 		}
 		if strings.HasPrefix(line, "}") {
+			name := f.Name()
+			name = strings.Replace(name, "\\", "/", -1)
 			switch status {
 			case _enum:
 				enumList = append(enumList, buffer.String())
 			case _tfObject:
-				body := fmt.Sprint("/**", f.Name(), "*/\n", buffer.String())
+				body := fmt.Sprint("/** ", name, " */\n", buffer.String())
 				tfobj.body = body
 				tfObjectList.add(tfobj)
 				tFObjectMap[tfobj.name] = tfobj
 			case _service:
-				body := fmt.Sprint("/**", f.Name(), "*/\n", buffer.String())
+				body := fmt.Sprint("/**", name, "*/\n", buffer.String())
 				servcieObj.ServcieBody = body
 				servcieList = append(servcieList, servcieObj)
 			default:
